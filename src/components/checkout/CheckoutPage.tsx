@@ -7,16 +7,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/providers/Auth'
-import { useTheme } from '@/providers/Theme'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { cssVariables } from '@/cssVariables'
-import { CheckoutForm } from '@/components/forms/CheckoutForm'
-import { useAddresses, useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
+import { RazorpayCheckoutForm } from '@/components/forms/RazorpayCheckoutForm'
+import { useAddresses, useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import { CheckoutAddresses } from '@/components/checkout/CheckoutAddresses'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
 import { Address } from '@/payload-types'
@@ -26,22 +22,17 @@ import { FormItem } from '@/components/forms/FormItem'
 import { toast } from 'sonner'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 
-const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-const stripe = loadStripe(apiKey)
-
 export const CheckoutPage: React.FC = () => {
   const { user } = useAuth()
   const router = useRouter()
   const { cart } = useCart()
   const [error, setError] = useState<null | string>(null)
-  const { theme } = useTheme()
   /**
    * State to manage the email input for guest checkout.
    */
   const [email, setEmail] = useState('')
   const [emailEditable, setEmailEditable] = useState(true)
   const [paymentData, setPaymentData] = useState<null | Record<string, unknown>>(null)
-  const { initiatePayment } = usePayments()
   const { addresses } = useAddresses()
   const [shippingAddress, setShippingAddress] = useState<Partial<Address>>()
   const [billingAddress, setBillingAddress] = useState<Partial<Address>>()
@@ -77,35 +68,111 @@ export const CheckoutPage: React.FC = () => {
   }, [])
 
   const initiatePaymentIntent = useCallback(
-    async (paymentID: string) => {
+    async () => {
       try {
-        const paymentData = (await initiatePayment(paymentID, {
-          additionalData: {
-            ...(email ? { customerEmail: email } : {}),
-            billingAddress,
-            shippingAddress: billingAddressSameAsShipping ? billingAddress : shippingAddress,
-          },
-        })) as Record<string, unknown>
-
-        if (paymentData) {
-          setPaymentData(paymentData)
+        // Use custom Razorpay API route
+        if (!cart?.id || !cart?.subtotal) {
+          throw new Error('Cart is empty or invalid')
         }
+
+        const response = await fetch('/api/razorpay/create-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cartId: cart.id,
+            amount: cart.subtotal,
+            currency: 'INR',
+            customerEmail: email || user?.email,
+          }),
+        })
+
+        let data
+        try {
+          data = await response.json()
+        } catch (parseError) {
+          console.error('Failed to parse response:', parseError)
+          throw new Error('Invalid response from server. Please try again.')
+        }
+
+        if (!response.ok) {
+          throw new Error(data?.error || 'Failed to create Razorpay order')
+        }
+
+        if (!data?.orderId) {
+          throw new Error('Invalid response: Missing order ID')
+        }
+
+        setPaymentData({
+          orderId: data.orderId,
+          amount: data.amount,
+          currency: data.currency,
+        })
       } catch (error) {
-        const errorData = error instanceof Error ? JSON.parse(error.message) : {}
+        console.error('Payment initiation error:', error)
+        console.error('Error type:', typeof error)
+        console.error('Error instanceof Error:', error instanceof Error)
+        if (error instanceof Error) {
+          console.error('Error message:', error.message)
+          console.error('Error stack:', error.stack)
+          console.error('Error name:', error.name)
+        }
+        
+        let errorData = {}
         let errorMessage = 'An error occurred while initiating payment.'
 
-        if (errorData?.cause?.code === 'OutOfStock') {
-          errorMessage = 'One or more items in your cart are out of stock.'
+        if (error instanceof Error) {
+          // Try to parse as JSON first (for structured errors)
+          try {
+            errorData = JSON.parse(error.message)
+          } catch {
+            // error.message is not JSON, use it directly as error message
+            errorData = {}
+          }
+
+          // Check for specific error codes
+          if (errorData?.cause?.code === 'OutOfStock') {
+            errorMessage = 'One or more items in your cart are out of stock.'
+          } else if (errorData?.message) {
+            // Use the parsed message from JSON
+            errorMessage = errorData.message
+          } else if (errorData?.error) {
+            // Some APIs return 'error' field
+            errorMessage = errorData.error
+          } else {
+            // Use the error message directly if not JSON or no parsed message
+            errorMessage = error.message || error.toString() || 'An error occurred while initiating payment.'
+          }
+        } else if (typeof error === 'object' && error !== null) {
+          // Handle non-Error objects
+          try {
+            errorMessage = JSON.stringify(error)
+          } catch {
+            errorMessage = String(error)
+          }
+        } else {
+          errorMessage = String(error)
         }
 
+        console.error('Final error message:', errorMessage)
         setError(errorMessage)
         toast.error(errorMessage)
       }
     },
-    [billingAddress, billingAddressSameAsShipping, shippingAddress],
+    [cart, email, user],
   )
 
-  if (!stripe) return null
+  // Check if Razorpay is configured
+  const isRazorpayConfigured = Boolean(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID)
+
+  if (!isRazorpayConfigured) {
+    return (
+      <div className="prose dark:prose-invert py-12 w-full items-center">
+        <p>Razorpay payment gateway is not configured. Please configure Razorpay.</p>
+      </div>
+    )
+  }
 
   if (cartIsEmpty && isProcessingPayment) {
     return (
@@ -270,19 +337,21 @@ export const CheckoutPage: React.FC = () => {
         )}
 
         {!paymentData && (
-          <Button
-            className="self-start"
-            disabled={!canGoToPayment}
-            onClick={(e) => {
-              e.preventDefault()
-              void initiatePaymentIntent('stripe')
-            }}
-          >
-            Go to payment
-          </Button>
+          <div className="flex flex-col gap-4">
+            <Button
+              className="self-start"
+              disabled={!canGoToPayment}
+              onClick={(e) => {
+                e.preventDefault()
+                void initiatePaymentIntent()
+              }}
+            >
+              Go to payment
+            </Button>
+          </div>
         )}
 
-        {!paymentData?.['clientSecret'] && error && (
+        {!paymentData?.['orderId'] && error && (
           <div className="my-8">
             <Message error={error} />
 
@@ -298,57 +367,28 @@ export const CheckoutPage: React.FC = () => {
           </div>
         )}
 
-        <Suspense fallback={<React.Fragment />}>
-          {/* @ts-ignore */}
-          {paymentData && paymentData?.['clientSecret'] && (
-            <div className="pb-16">
-              <h2 className="font-medium text-3xl">Payment</h2>
-              {error && <p>{`Error: ${error}`}</p>}
-              <Elements
-                options={{
-                  appearance: {
-                    theme: 'stripe',
-                    variables: {
-                      borderRadius: '6px',
-                      colorPrimary: '#858585',
-                      gridColumnSpacing: '20px',
-                      gridRowSpacing: '20px',
-                      colorBackground: theme === 'dark' ? '#0a0a0a' : cssVariables.colors.base0,
-                      colorDanger: cssVariables.colors.error500,
-                      colorDangerText: cssVariables.colors.error500,
-                      colorIcon:
-                        theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                      colorText: theme === 'dark' ? '#858585' : cssVariables.colors.base1000,
-                      colorTextPlaceholder: '#858585',
-                      fontFamily: 'Geist, sans-serif',
-                      fontSizeBase: '16px',
-                      fontWeightBold: '600',
-                      fontWeightNormal: '500',
-                      spacingUnit: '4px',
-                    },
-                  },
-                  clientSecret: paymentData['clientSecret'] as string,
-                }}
-                stripe={stripe}
-              >
-                <div className="flex flex-col gap-8">
-                  <CheckoutForm
-                    customerEmail={email}
-                    billingAddress={billingAddress}
-                    setProcessingPayment={setProcessingPayment}
-                  />
-                  <Button
-                    variant="ghost"
-                    className="self-start"
-                    onClick={() => setPaymentData(null)}
-                  >
-                    Cancel payment
-                  </Button>
-                </div>
-              </Elements>
-            </div>
-          )}
-        </Suspense>
+        {/* Razorpay Payment Form */}
+        {paymentData && paymentData?.['orderId'] && (
+          <div className="pb-16">
+            <h2 className="font-medium text-3xl">Payment</h2>
+            {error && <p>{`Error: ${error}`}</p>}
+            <RazorpayCheckoutForm
+              customerEmail={email}
+              billingAddress={billingAddress}
+              orderId={paymentData['orderId'] as string}
+              amount={cart?.subtotal || 0}
+              currency="INR"
+              setProcessingPayment={setProcessingPayment}
+            />
+            <Button
+              variant="ghost"
+              className="self-start mt-4"
+              onClick={() => setPaymentData(null)}
+            >
+              Cancel payment
+            </Button>
+          </div>
+        )}
       </div>
 
       {!cartIsEmpty && (

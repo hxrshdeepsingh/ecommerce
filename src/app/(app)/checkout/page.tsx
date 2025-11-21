@@ -8,26 +8,14 @@ import { CheckoutPage } from '@/components/checkout/CheckoutPage'
 export default function Checkout() {
   return (
     <div className="container min-h-[90vh] flex">
-      {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
+      {!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && (
         <div>
           <Fragment>
-            {'To enable checkout, you must '}
-            <a
-              href="https://dashboard.stripe.com/test/apikeys"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              obtain your Stripe API Keys
-            </a>
-            {' then set them as environment variables. See the '}
-            <a
-              href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              README
-            </a>
-            {' for more details.'}
+            {'To enable checkout, you must configure Razorpay. Please set '}
+            <code>NEXT_PUBLIC_RAZORPAY_KEY_ID</code>
+            {' and '}
+            <code>RAZORPAY_KEY_SECRET</code>
+            {' in your environment variables.'}
           </Fragment>
         </div>
       )}

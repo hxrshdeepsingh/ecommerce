@@ -37,6 +37,8 @@ export default async function Orders() {
     orders = ordersResult?.docs || []
   } catch (error) {}
 
+  console.log("orders", orders);
+
   return (
     <>
       <div className="border p-8 rounded-lg bg-primary-foreground w-full">

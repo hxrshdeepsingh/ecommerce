@@ -129,13 +129,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (res.ok) {
           const { user: meUser } = await res.json()
           setUser(meUser || null)
-          setStatus(meUser ? 'loggedIn' : undefined)
+          setStatus(meUser ? 'loggedIn' : 'loggedOut')
         } else {
-          throw new Error('An error occurred while fetching your account.')
+          // User is not authenticated (401/403) or other error - this is expected
+          // Don't throw an error, just set user to null
+          setUser(null)
+          setStatus('loggedOut')
         }
       } catch (e) {
+        // Network errors or other issues - handle gracefully
+        console.error('Error fetching user account:', e)
         setUser(null)
-        throw new Error('An error occurred while fetching your account.')
+        setStatus('loggedOut')
+        // Don't throw errors in useEffect - it causes React to crash
       }
     }
 
