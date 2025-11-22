@@ -1,5 +1,5 @@
-// import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 import {
   BoldFeature,
@@ -33,6 +33,18 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI,
+    },
+  }),
+  email: nodemailerAdapter({
+    defaultFromAddress: 'ishu.cxx@gmail.com',
+    defaultFromName: 'Parth Infotech',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
     },
   }),
   editor: lexicalEditor({
@@ -70,9 +82,6 @@ export default buildConfig({
       ]
     },
   }),
-  //email: nodemailerAdapter(),
-  endpoints: [],
-  globals: [],
   plugins: [
     ...plugins,
   ],
