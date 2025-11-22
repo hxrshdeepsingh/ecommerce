@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,11 +8,11 @@ import { ArrowRight, Truck, Shield, CreditCard } from "lucide-react";
 export default function HeroSection() {
   return (
     <div className="relative w-full overflow-hidden">
-      <section className="relative py-32">
+      <section className="relative py-44">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/cat.jpg')",
+            backgroundImage: "url('/media/cat.jpg')",
           }}
         />
 

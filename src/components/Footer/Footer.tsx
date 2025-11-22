@@ -1,10 +1,7 @@
-import React from "react";
 import {
   Truck,
   Wallet,
   RefreshCcw,
-  MapPin,
-  PhoneCall,
   Mail,
   ShieldCheck,
   Phone,
@@ -59,19 +56,6 @@ const shopProducts = [
   "Cameras, Photo & Video",
 ];
 
-const appStores = [
-  {
-    src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/apple-icon.png",
-    alt: "App Store",
-    title: "App Store",
-  },
-  {
-    src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/google-play-icon.png",
-    alt: "Google Play Store",
-    title: "Google Play",
-  },
-];
-
 const paymentLogos = [
   {
     src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/lemon-squeezy.png",
@@ -95,7 +79,7 @@ const paymentLogos = [
   },
 ];
 
-function NewFooter() {
+export default function Footer() {
   return (
     <footer className="bg-accent dark:bg-gray-900">
       <div className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
@@ -104,13 +88,12 @@ function NewFooter() {
           return (
             <div
               key={idx}
-              className={`space-y-6 p-6 ${
-                idx === 0
-                  ? "sm:border-e"
-                  : idx === 1
-                    ? "max-sm:border-t md:border-e"
-                    : "max-md:border-t sm:max-md:col-span-2"
-              }`}
+              className={`space-y-6 p-6 ${idx === 0
+                ? "sm:border-e"
+                : idx === 1
+                  ? "max-sm:border-t md:border-e"
+                  : "max-md:border-t sm:max-md:col-span-2"
+                }`}
             >
               <div className="flex justify-center items-center">
                 <Icon className="h-8 w-8 text-muted-foreground" />
@@ -170,7 +153,7 @@ function NewFooter() {
         <div className="flex flex-col gap-5">
           <div className="text-xl font-semibold">Shop Departments</div>
           <ul className="text-muted-foreground space-y-3">
-            {shopLinks.map((link, idx) => (
+            {shopProducts.map((link, idx) => (
               <li key={idx}>
                 <Link className="text-sm font-medium text-black" href="#">
                   {link}
@@ -202,5 +185,3 @@ function NewFooter() {
     </footer>
   );
 }
-
-export default NewFooter;
