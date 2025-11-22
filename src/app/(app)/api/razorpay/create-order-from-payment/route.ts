@@ -23,9 +23,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Cart is empty or not found' }, { status: 400 })
     }
 
-    console.log("cart items", cart.items);
-    console.log("cart", cart);
-
     // Create a transaction
     const transaction = await payload.create({
       collection: 'transactions',
@@ -80,13 +77,11 @@ export async function POST(request: NextRequest) {
           quantity: item.quantity || 1,
         })),
         status: 'processing',
-        customerEmail: cart.customer.email,
-        customer: cart.customer.id,
-        cart: cartId,
-        transaction: transaction.id,
+        customerEmail: typeof cart.customer === 'object' ? cart.customer?.email ?? "" : "",
+        customer: typeof cart.customer === 'number' ? cart.customer : (cart.customer?.id ?? null),
+        transactions: [transaction.id],
       },
     })
-    console.log(order);
 
     // Clear the cart
     await payload.update({

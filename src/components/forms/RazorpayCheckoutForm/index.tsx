@@ -168,16 +168,8 @@ export const RazorpayCheckoutForm: React.FC<Props> = ({
           },
         },
       }
-
-      console.log('Opening Razorpay with options:', {
-        key: razorpayKeyId ? '***configured***' : 'MISSING',
-        amount: Math.round(amount * 100),
-        currency,
-        order_id: orderId,
-      })
-
       const razorpay = new window.Razorpay(razorpayOptions)
-      
+
       // Add error handler
       razorpay.on('payment.failed', function (response: any) {
         console.error('Razorpay payment failed:', response)

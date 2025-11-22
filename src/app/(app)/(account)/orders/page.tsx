@@ -35,9 +35,7 @@ export default async function Orders() {
     })
 
     orders = ordersResult?.docs || []
-  } catch (error) {}
-
-  console.log("orders", orders);
+  } catch (error) { }
 
   return (
     <>

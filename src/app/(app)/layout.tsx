@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { LivePreviewListener } from "@/components/LivePreviewListener";
 import { Providers } from "@/providers";
 import { InitTheme } from "@/providers/Theme/InitTheme";
 import { GeistSans } from "geist/font/sans";
@@ -29,7 +28,6 @@ export default async function RootLayout({
       </head>
       <body>
         <Providers>
-          <LivePreviewListener />
           <Navbar />
           <main>{children}</main>
           <Footer />

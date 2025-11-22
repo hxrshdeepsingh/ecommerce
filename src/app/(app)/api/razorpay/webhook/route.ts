@@ -30,10 +30,8 @@ export async function POST(request: NextRequest) {
     if (event === 'payment.captured' || event === 'payment.authorized') {
       // Handle successful payment
       // You can update order status, send confirmation emails, etc.
-      console.log('Payment successful:', paymentData)
     } else if (event === 'payment.failed') {
       // Handle failed payment
-      console.log('Payment failed:', paymentData)
     }
 
     return NextResponse.json({ received: true })
