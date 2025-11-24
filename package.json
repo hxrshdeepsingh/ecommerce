@@ -14,7 +14,6 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@payloadcms/admin-bar": "3.64.0",
     "@payloadcms/db-postgres": "^3.64.0",
     "@payloadcms/email-nodemailer": "3.64.0",
     "@payloadcms/live-preview-react": "3.64.0",
@@ -59,7 +58,6 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
-    "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "geist": "^1.5.1",
@@ -68,7 +66,7 @@
     "knip": "^5.70.1",
     "lucide-react": "^0.554.0",
     "next": "^15.2.3",
-    "next-themes": "0.4.6",
+    "next-themes": "^0.4.6",
     "payload": "3.64.0",
     "pg": "^8.16.3",
     "prism-react-renderer": "^2.4.1",
@@ -93,8 +91,10 @@
     "@types/node": "24.10.1",
     "@types/react": "19.2.6",
     "@types/react-dom": "19.2.3",
+    "next-unused": "^0.0.6",
     "tailwindcss": "^4.1.17",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "unimported": "^1.31.0"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0"

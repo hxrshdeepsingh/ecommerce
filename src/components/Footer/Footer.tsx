@@ -37,46 +37,21 @@ const contactInfo = [
   { icon: Mail, text: "johndoe@gmail.com" },
 ];
 
-const accountLinks = [
-  "Computer & Accessories",
-  "Smartphones & Tablets",
-  "TV, Video & Audio",
-  "Cameras, Photo & Video",
+const pagesLinks = [
+  "About Us",
+  "Contact Us",
+  "Terms & Conditions",
+  "Privacy Policy",
 ];
 const shopLinks = [
-  "Computer & Accessories",
-  "Smartphones & Tablets",
-  "TV, Video & Audio",
-  "Cameras, Photo & Video",
+  "Men",
+  "Women",
+  "Accessories"
 ];
-const shopProducts = [
-  "Computer & Accessories",
-  "Smartphones & Tablets",
-  "TV, Video & Audio",
-  "Cameras, Photo & Video",
-];
-
-const paymentLogos = [
-  {
-    src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/lemon-squeezy.png",
-    alt: "Lemon Squeezy",
-    className: "h-6",
-  },
-  {
-    src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/visa.png",
-    alt: "Visa",
-    className: "h-5",
-  },
-  {
-    src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/paypal.png",
-    alt: "Paypal",
-    className: "h-5",
-  },
-  {
-    src: "https://cdn.shadcnstudio.com/ss-assets/brand-logo/master.png",
-    alt: "Mastercard",
-    className: "h-5",
-  },
+const accountLinks = [
+  "Dashboard",
+  "Orders",
+  "Wishlist",
 ];
 
 export default function Footer() {
@@ -96,10 +71,10 @@ export default function Footer() {
                 }`}
             >
               <div className="flex justify-center items-center">
-                <Icon className="h-8 w-8 text-muted-foreground" />
+                <Icon className="h-8 w-8 text-muted-foreground text-primary dark:text-white" />
               </div>
               <div className="flex flex-col items-center gap-4">
-                <h6 className="text-xl font-semibold">{feature.title}</h6>
+                <h6 className="text-xl font-semibold text-primary">{feature.title}</h6>
                 <p className="text-center">{feature.description}</p>
               </div>
             </div>
@@ -117,7 +92,7 @@ export default function Footer() {
               return (
                 <div key={idx} className="flex items-center gap-2">
                   <Icon className="h-5 w-5" />
-                  <span>{info.text}</span>
+                  <span className="text-sm">{info.text}</span>
                 </div>
               );
             })}
@@ -125,11 +100,11 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="text-xl font-semibold">My Account</div>
+          <div className="text-xl font-semibold text-primary">Pages</div>
           <ul className="text-muted-foreground space-y-3">
-            {accountLinks.map((link, idx) => (
+            {pagesLinks.map((link, idx) => (
               <li key={idx}>
-                <Link className="text-sm font-medium text-black" href="#">
+                <Link className="text-sm font-medium hover:text-primary" href="#">
                   {link}
                 </Link>
               </li>
@@ -138,11 +113,11 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="text-xl font-semibold">Shop Departments</div>
+          <div className="text-xl font-semibold text-primary">Shop</div>
           <ul className="text-muted-foreground space-y-3">
             {shopLinks.map((link, idx) => (
               <li key={idx}>
-                <Link className="text-sm font-medium text-black" href="#">
+                <Link className="text-sm font-medium hover:text-primary" href="#">
                   {link}
                 </Link>
               </li>
@@ -151,30 +126,17 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="text-xl font-semibold">Shop Departments</div>
+          <div className="text-xl font-semibold text-primary">Account</div>
           <ul className="text-muted-foreground space-y-3">
-            {shopProducts.map((link, idx) => (
+            {accountLinks.map((link, idx) => (
               <li key={idx}>
-                <Link className="text-sm font-medium text-black" href="#">
+                <Link className="text-sm font-medium hover:text-primary" href="#">
                   {link}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-      </div>
-
-      {/* Footer Bottom */}
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 px-4 py-6 sm:px-6 lg:px-8">
-        <ShieldCheck className="h-6 w-6 text-green-600" />
-        {paymentLogos.map((logo, idx) => (
-          <img
-            key={idx}
-            src={logo.src}
-            alt={logo.alt}
-            className={logo.className}
-          />
-        ))}
       </div>
 
       <div className="mx-auto flex max-w-7xl justify-center px-4 py-6 sm:px-6 lg:px-8">

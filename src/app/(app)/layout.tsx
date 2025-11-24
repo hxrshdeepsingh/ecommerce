@@ -1,12 +1,13 @@
+import "./globals.css";
 import type { ReactNode } from "react";
 
 import { Providers } from "@/providers";
 import { InitTheme } from "@/providers/Theme/InitTheme";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import "./globals.css";
+import { SohneHalbfett } from "@/fonts/sohne";
+
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export default async function RootLayout({
   children,
@@ -15,11 +16,11 @@ export default async function RootLayout({
 }) {
   return (
     <html
-      className={[GeistSans.variable, GeistMono.variable]
-        .filter(Boolean)
-        .join(" ")}
       lang="en"
       suppressHydrationWarning
+      className={[
+        SohneHalbfett.variable,
+      ].join(" ")}
     >
       <head>
         <InitTheme />
@@ -28,9 +29,16 @@ export default async function RootLayout({
       </head>
       <body>
         <Providers>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </ThemeProvider>
         </Providers>
       </body>
     </html>

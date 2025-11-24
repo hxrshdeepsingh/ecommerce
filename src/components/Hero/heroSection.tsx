@@ -1,28 +1,33 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Truck, Shield, CreditCard } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <div className="relative w-full overflow-hidden">
-      <section className="relative py-44">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/media/cat.jpg')",
-          }}
+      <section className="relative min-h-screen flex items-center justify-center">
+
+        {/* Background Video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          src="https://static.gopro.com/assets/blta2b8522e5372af40/bltb90e0d3048f72f0f/68aee83db54b061d1aca0b79/01-h13-pdp-rugged-1280.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
         />
 
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
 
-        <div className="relative container mx-auto px-4">
+        {/* Content */}
+        <div className="relative z-20 container mx-auto px-4">
           <div className="max-w-3xl text-white">
             <Badge className="mb-4 bg-white text-black">New Collection</Badge>
 
-            <h1 className="text-5xl font-bold mb-6 drop-shadow-lg">
+            <h1 className="text-5xl font-bold mb-6 drop-shadow-lg font-sohne">
               Discover Amazing Products
             </h1>
 
@@ -34,53 +39,18 @@ export default function HeroSection() {
               <Button size="lg">
                 Shop Now <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white/20 text-white"
+                className="bg-white/20 text-white border-white/30"
               >
                 Learn More
               </Button>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* FEATURES SECTION */}
-      <section className="py-16 border-border bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <Truck className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="font-semibold mb-2">Free Shipping</h3>
-                <p className="text-sm text-muted-foreground">
-                  On orders over $50
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <Shield className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="font-semibold mb-2">Secure Payment</h3>
-                <p className="text-sm text-muted-foreground">
-                  100% secure transactions
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <CreditCard className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="font-semibold mb-2">Easy Returns</h3>
-                <p className="text-sm text-muted-foreground">
-                  30-day return policy
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </section>
     </div>
   );
