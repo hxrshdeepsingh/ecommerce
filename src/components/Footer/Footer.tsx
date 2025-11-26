@@ -3,7 +3,6 @@ import {
   Wallet,
   RefreshCcw,
   Mail,
-  ShieldCheck,
   Phone,
   Map,
 } from "lucide-react";
@@ -12,52 +11,61 @@ import { Logo } from "@/components/Logo/Logo";
 
 const features = [
   {
-    title: "Free delivery",
+    title: "Free & Fast Delivery",
     description:
-      "Get your orders delivered to your doorstep for free. Shop with us and enjoy hassle-free shipping on every purchase.",
+      "Get your security products delivered quickly and at no extra cost. Enjoy seamless and reliable shipping on every CCTV purchase.",
     icon: Truck,
   },
   {
-    title: "Online Payment",
+    title: "Secure Online Payments",
     description:
-      "Experience hassle-free online payments with secure and convenient options. Pay quickly and effortlessly with your method.",
+      "Make safe and smooth payments with our encrypted checkout system. Choose from multiple trusted payment options with full confidence.",
     icon: Wallet,
   },
   {
-    title: "Easy Return",
+    title: "Easy Returns",
     description:
-      "Enjoy easy returns within 30 days of purchase. Use our prepaid label or visit any store for a quick refund or exchange!",
+      "Shop worry-free with our 7-day easy return policy. If something doesn’t fit your needs, request a return or exchange effortlessly.",
     icon: RefreshCcw,
-  },
+  }
 ];
 
+
 const contactInfo = [
-  { icon: Map, text: "Maharai-farm, Jaipur (RJ)" },
-  { icon: Phone, text: "+1-613-598-6981" },
-  { icon: Mail, text: "johndoe@gmail.com" },
+  { icon: Map, text: "Maharai Farm, Jaipur, Rajasthan" },
+  { icon: Phone, text: "+91 98XXXXXXXX" },
+  { icon: Mail, text: "support@yourcctvstore.com" },
 ];
+
 
 const pagesLinks = [
   "About Us",
   "Contact Us",
+  "Installation Services",
   "Terms & Conditions",
   "Privacy Policy",
 ];
+
 const shopLinks = [
-  "Men",
-  "Women",
-  "Accessories"
+  "CCTV Cameras",
+  "DVR & NVR Systems",
+  "Smart Door Cameras",
+  "WiFi Cameras",
+  "Security Accessories",
 ];
+
 const accountLinks = [
   "Dashboard",
-  "Orders",
+  "My Orders",
   "Wishlist",
+  "Account Settings",
 ];
+
 
 export default function Footer() {
   return (
     <footer className="bg-accent dark:bg-gray-900">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {features.map((feature, idx) => {
           const Icon = feature.icon;
           return (
@@ -75,7 +83,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col items-center gap-4">
                 <h6 className="text-xl font-semibold text-primary">{feature.title}</h6>
-                <p className="text-center">{feature.description}</p>
+                <p className="text-center text-sm">{feature.description}</p>
               </div>
             </div>
           );
@@ -83,7 +91,8 @@ export default function Footer() {
       </div>
 
       {/* Contact / Info Section */}
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 sm:grid-cols-2 sm:px-6 sm:py-16 md:py-24 lg:grid-cols-4 lg:px-8">
+      <div className="container mx-auto grid grid-cols-1 gap-8 px-4 py-8 sm:grid-cols-2 sm:px-6 sm:py-16 md:py-24 lg:grid-cols-4 lg:px-6">
+
         <div className="flex flex-col gap-8">
           <Logo />
           <div className="space-y-3">
@@ -99,44 +108,51 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <div className="text-xl font-semibold text-primary">Pages</div>
-          <ul className="text-muted-foreground space-y-3">
-            {pagesLinks.map((link, idx) => (
-              <li key={idx}>
-                <Link className="text-sm font-medium hover:text-primary" href="#">
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="flex justify-end">
+          <div className="flex flex-col gap-5">
+            <div className="text-xl font-semibold text-primary">Pages</div>
+            <ul className="text-muted-foreground space-y-3">
+              {pagesLinks.map((link, idx) => (
+                <li key={idx}>
+                  <Link className="text-sm font-medium hover:text-primary" href="#">
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <div className="text-xl font-semibold text-primary">Shop</div>
-          <ul className="text-muted-foreground space-y-3">
-            {shopLinks.map((link, idx) => (
-              <li key={idx}>
-                <Link className="text-sm font-medium hover:text-primary" href="#">
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="flex justify-end">
+          <div className="flex flex-col gap-5">
+            <div className="text-xl font-semibold text-primary">Shop</div>
+            <ul className="text-muted-foreground space-y-3">
+              {shopLinks.map((link, idx) => (
+                <li key={idx}>
+                  <Link className="text-sm font-medium hover:text-primary" href="#">
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-5">
-          <div className="text-xl font-semibold text-primary">Account</div>
-          <ul className="text-muted-foreground space-y-3">
-            {accountLinks.map((link, idx) => (
-              <li key={idx}>
-                <Link className="text-sm font-medium hover:text-primary" href="#">
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="flex justify-end">
+          <div className="flex flex-col gap-5">
+            <div className="text-xl font-semibold text-primary">Account</div>
+            <ul className="text-muted-foreground space-y-3">
+              {accountLinks.map((link, idx) => (
+                <li key={idx}>
+                  <Link className="text-sm font-medium hover:text-primary" href="#">
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
+
       </div>
 
       <div className="mx-auto flex max-w-7xl justify-center px-4 py-6 sm:px-6 lg:px-8">

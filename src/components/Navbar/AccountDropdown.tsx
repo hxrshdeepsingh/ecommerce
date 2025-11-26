@@ -23,9 +23,13 @@ export default async function AccountDropdown() {
     if (!user) {
         return (
             <div className="flex items-center gap-3">
-                <Button>Log in</Button>
+                <Link href="/login">
+                    <Button>Log in</Button>
+                </Link>
                 <Separator orientation="vertical" className="h-6" />
-                <Button variant="outline">Sign Up</Button>
+                <Link href="/create-account">
+                    <Button variant="outline">Sign Up</Button>
+                </Link>
             </div>
         )
     }

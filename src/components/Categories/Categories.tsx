@@ -26,11 +26,11 @@ const categories = [
 
 export default function Categories() {
     return (
-        <section className="py-24 md:py-32 bg-background">
+        <section className="py-12 md:py-16 bg-background">
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
                     <div>
-                        <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Shop by Category</h2>
+                        <h2 className="text-3xl text-primary md:text-4xl font-bold tracking-tight">Shop by Category</h2>
                         <p className="text-muted-foreground mt-4 text-lg max-w-xl">
                             Explore our comprehensive collection of professional photography equipment.
                         </p>
