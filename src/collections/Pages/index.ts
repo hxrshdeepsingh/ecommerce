@@ -36,5 +36,5 @@ export const Pages: CollectionConfig = {
     afterChange: [revalidatePage],
     afterDelete: [revalidateDelete],
   },
-  versions: { drafts: { autosave: true }, maxPerDoc: 50 },
+  versions: { drafts: false, maxPerDoc: 0 },
 }

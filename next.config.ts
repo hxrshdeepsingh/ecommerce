@@ -1,11 +1,6 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 
-const NEXT_PUBLIC_SERVER_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
-
-const url = new URL(NEXT_PUBLIC_SERVER_URL);
-
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   typescript: {
@@ -16,7 +11,6 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",
@@ -31,6 +25,10 @@ const nextConfig: NextConfig = {
         pathname: "/api/media/file/**",
       },
       {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
@@ -41,6 +39,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "static.gopro.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
   },

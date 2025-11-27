@@ -3,20 +3,22 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function HeroSection() {
   return (
     <div className="relative w-full overflow-hidden">
       <section className="relative min-h-[80vh] flex items-center justify-center">
 
-        {/* Background Video */}
-        <video
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          src="https://static.gopro.com/assets/blta2b8522e5372af40/bltb90e0d3048f72f0f/68aee83db54b061d1aca0b79/01-h13-pdp-rugged-1280.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
+        {/* Background Image - Optimized with Next.js Image */}
+        <Image
+          src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=2070&auto=format&fit=crop"
+          alt="Photography equipment background"
+          fill
+          className="object-cover z-0"
+          priority // Load immediately for LCP optimization
+          quality={85}
+          sizes="100vw"
         />
 
         {/* Overlay */}

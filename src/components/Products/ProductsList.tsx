@@ -16,8 +16,12 @@ export default async function ProductsList() {
       categories: true,
       priceInUSD: true,
     },
+    depth: 1,
     sort: "title",
   })
 
   return <CarouselClient products={products.docs} />
 }
+
+// Enable ISR - revalidate every 60 seconds
+export const revalidate = 60;

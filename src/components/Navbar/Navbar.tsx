@@ -13,7 +13,7 @@ export default async function Navbar() {
 
   const header = await payload.findGlobal({
     slug: "header",
-    depth: 2,
+    depth: 1,
   });
 
   return (
@@ -25,9 +25,12 @@ export default async function Navbar() {
         </div>
 
         <div className="hidden lg:flex justify-center items-center gap-8">
-          {header?.items?.map((item) => (
-            <a href={item.page?.slug} key={item.id} className="font-medium hover:text-primary text-md">{item.label}</a>
-          ))}
+          {header?.items?.map((item) => {
+            const href = typeof item.page === 'object' && item.page?.slug ? `/${item.page.slug}` : '#';
+            return (
+              <a href={href} key={item.id} className="font-medium hover:text-primary text-md">{item.label}</a>
+            )
+          })}
         </div>
 
         <div className="hidden lg:flex justify-end items-center gap-4">
@@ -45,3 +48,6 @@ export default async function Navbar() {
     </nav>
   );
 }
+
+// Cache navbar for 5 minutes (header rarely changes)
+export const revalidate = 300;

@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
             : null,
           quantity: item.quantity || 1,
         })),
-        paymentMethod: 'stripe',
+        // paymentMethod: 'stripe',
         status: 'succeeded',
         amount: amount || cart.subtotal || 0,
         currency: "USD",

@@ -459,11 +459,6 @@ export interface Transaction {
         id?: string | null;
       }[]
     | null;
-  paymentMethod?: 'stripe' | null;
-  stripe?: {
-    customerID?: string | null;
-    paymentIntentID?: string | null;
-  };
   billingAddress?: {
     title?: string | null;
     firstName?: string | null;
@@ -585,7 +580,6 @@ export interface Page {
   slug: string;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -938,7 +932,6 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1315,13 +1308,6 @@ export interface TransactionsSelect<T extends boolean = true> {
         variant?: T;
         quantity?: T;
         id?: T;
-      };
-  paymentMethod?: T;
-  stripe?:
-    | T
-    | {
-        customerID?: T;
-        paymentIntentID?: T;
       };
   billingAddress?:
     | T

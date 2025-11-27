@@ -9,4 +9,5 @@ export const SohneHalbfett = localFont({
         },
     ],
     variable: "--font-sohne-halbfett",
+    display: "swap", // Show fallback font immediately, swap when custom font loads
 });
