@@ -1,30 +1,41 @@
-import type { Order } from '@/payload-types'
 import type { Metadata } from 'next'
-
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-
 import { OrderItem } from '@/components/OrderItem'
 import { headers as getHeaders } from 'next/headers'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { redirect } from 'next/navigation'
+import { getAuthUser } from '@/utilities/auth'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
-export default async function Orders() {
+type Props = {
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined
+  }>
+}
+
+export default async function Orders({ searchParams }: Props) {
   const headers = await getHeaders()
-  const payload = await getPayload({ config: configPromise })
-  const { user } = await payload.auth({ headers })
-
-  let orders: Order[] | null = null
+  const user = await getAuthUser(headers)
+  const resolvedSearchParams = await searchParams
+  const page = typeof resolvedSearchParams?.page === 'string' ? Number(resolvedSearchParams.page) : 1
 
   if (!user) {
     redirect(`/login?warning=${encodeURIComponent('Please login to access your orders.')}`)
   }
 
+  const payload = await getPayload({ config: configPromise })
+  let orders: any[] | null = null
+  let hasNextPage = false
+  let hasPrevPage = false
+  let totalPages = 1
+
   try {
     const ordersResult = await payload.find({
       collection: 'orders',
-      limit: 0,
-      pagination: false,
+      limit: 10,
+      page,
       user,
       overrideAccess: false,
       where: {
@@ -35,6 +46,9 @@ export default async function Orders() {
     })
 
     orders = ordersResult?.docs || []
+    hasNextPage = ordersResult.hasNextPage
+    hasPrevPage = ordersResult.hasPrevPage
+    totalPages = ordersResult.totalPages
   } catch (error) { }
 
   return (
@@ -46,13 +60,35 @@ export default async function Orders() {
         )}
 
         {orders && orders.length > 0 && (
-          <ul className="flex flex-col gap-6">
+          <ul className="flex flex-col gap-6 mb-8">
             {orders?.map((order, index) => (
               <li key={order.id}>
                 <OrderItem order={order} />
               </li>
             ))}
           </ul>
+        )}
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between">
+            <Button variant="outline" disabled={!hasPrevPage} asChild={hasPrevPage}>
+              {hasPrevPage ? (
+                <Link href={`/orders?page=${page - 1}`}>Previous</Link>
+              ) : (
+                <span>Previous</span>
+              )}
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              Page {page} of {totalPages}
+            </span>
+            <Button variant="outline" disabled={!hasNextPage} asChild={hasNextPage}>
+              {hasNextPage ? (
+                <Link href={`/orders?page=${page + 1}`}>Next</Link>
+              ) : (
+                <span>Next</span>
+              )}
+            </Button>
+          </div>
         )}
       </div>
     </>

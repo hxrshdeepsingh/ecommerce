@@ -1,27 +1,36 @@
-import HeroSection from "@/components/Hero/heroSection";
-import ProductsList from "@/components/Products/ProductsList";
-import Categories from "@/components/Categories/Categories";
-import dynamic from "next/dynamic";
+import HeroSection from "@/components/Hero/heroSection"
+import Categories from "@/components/Categories/Categories"
+import dynamic from "next/dynamic"
+import { Suspense } from "react"
 
-// Lazy load below-the-fold components to reduce initial bundle size
-const Newsletter = dynamic(() => import("@/components/Newsletter/Newsletter"), {
-  loading: () => null, // No loading state needed for below-fold content
-});
-const Features = dynamic(() => import("@/components/Features/Features"), {
-  loading: () => null,
-});
+import ProductsList from "@/components/Products/ProductsList"
+import ProductsSkeleton from "@/components/Products/ProductsSkeleton"
 
-export default function page() {
+const Newsletter = dynamic(() => import("@/components/Newsletter/Newsletter"))
+const Features = dynamic(() => import("@/components/Features/Features"))
+
+export const revalidate = 600
+
+export default function Page() {
   return (
     <>
       <HeroSection />
       <Categories />
-      <ProductsList />
+
+      <Suspense fallback={<ProductsSkeleton />}>
+        <ProductsList />
+      </Suspense>
+
+      <Suspense fallback={<ProductsSkeleton />}>
+        <ProductsList />
+      </Suspense>
+
+      <Suspense fallback={<ProductsSkeleton />}>
+        <ProductsList />
+      </Suspense>
+
       <Features />
       <Newsletter />
     </>
-  );
+  )
 }
-
-// Enable ISR - revalidate home page every 60 seconds
-export const revalidate = 60;

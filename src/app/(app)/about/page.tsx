@@ -1,7 +1,8 @@
-import React from 'react'
 import { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, Target, Heart, Globe, ShieldCheck, Zap } from 'lucide-react'
+
+export const dynamic = "force-static"
 
 export const metadata: Metadata = {
     title: 'About Us | Store',

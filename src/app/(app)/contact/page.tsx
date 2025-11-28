@@ -1,4 +1,3 @@
-import React from 'react'
 import { Metadata } from 'next'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -6,7 +5,9 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Mail, MapPin, Phone, MessageSquare, Clock, Send } from 'lucide-react'
+import { Mail, MapPin, Phone, MessageSquare, Send } from 'lucide-react'
+
+export const dynamic = "force-static"
 
 export const metadata: Metadata = {
     title: 'Contact Us | Store',

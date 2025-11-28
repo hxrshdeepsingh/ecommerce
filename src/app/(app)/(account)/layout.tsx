@@ -14,7 +14,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <div>
       <div className="container">
-        <RenderParams className="" />
+        <RenderParams />
       </div>
 
       <div className="container mt-16 pb-8 flex gap-8">

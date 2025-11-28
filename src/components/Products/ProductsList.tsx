@@ -1,11 +1,12 @@
 import configPromise from "@payload-config"
 import { getPayload } from "payload"
+import { cache } from "react"
 import CarouselClient from "./ProductsListClient"
 
-export default async function ProductsList() {
+const getProductsCached = cache(async () => {
   const payload = await getPayload({ config: configPromise })
 
-  const products = await payload.find({
+  return payload.find({
     collection: "products",
     draft: false,
     overrideAccess: false,
@@ -19,9 +20,11 @@ export default async function ProductsList() {
     depth: 1,
     sort: "title",
   })
+})
 
+export default async function ProductsList() {
+  const products = await getProductsCached()
   return <CarouselClient products={products.docs} />
 }
 
-// Enable ISR - revalidate every 60 seconds
-export const revalidate = 60;
+export const revalidate = 60
