@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 
 import { Providers } from "@/providers";
 import { InitTheme } from "@/providers/Theme/InitTheme";
-import { SohneHalbfett } from "@/fonts/sohne";
 
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
@@ -18,9 +17,6 @@ export default async function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={[
-        SohneHalbfett.variable,
-      ].join(" ")}
     >
       <head>
         <InitTheme />

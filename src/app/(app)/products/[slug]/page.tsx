@@ -1,6 +1,5 @@
 import type { Media, Product } from '@/payload-types'
 
-import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { GridTileImage } from '@/components/Grid/tile'
 import { Gallery } from '@/components/product/Gallery'
 import { ProductDescription } from '@/components/product/ProductDescription'
@@ -13,6 +12,7 @@ import React, { Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon } from 'lucide-react'
 import { Metadata } from 'next'
+import { RichText } from '@/components/RichText'
 
 type Args = {
   params: Promise<{
@@ -37,15 +37,15 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
     description: product.meta?.description || '',
     openGraph: seoImage?.url
       ? {
-          images: [
-            {
-              alt: seoImage?.alt,
-              height: seoImage.height!,
-              url: seoImage?.url,
-              width: seoImage.width!,
-            },
-          ],
-        }
+        images: [
+          {
+            alt: seoImage?.alt,
+            height: seoImage.height!,
+            url: seoImage?.url,
+            width: seoImage.width!,
+          },
+        ],
+      }
       : null,
     robots: {
       follow: canIndex,
@@ -76,9 +76,9 @@ export default async function ProductPage({ params }: Args) {
   const metaImage = typeof product.meta?.image === 'object' ? product.meta?.image : undefined
   const hasStock = product.enableVariants
     ? product?.variants?.docs?.some((variant) => {
-        if (typeof variant !== 'object') return false
-        return variant.inventory && variant?.inventory > 0
-      })
+      if (typeof variant !== 'object') return false
+      return variant.inventory && variant?.inventory > 0
+    })
     : product.inventory! > 0
 
   let price = product.priceInUSD
@@ -141,7 +141,51 @@ export default async function ProductPage({ params }: Args) {
         </div>
       </div>
 
-      {product.layout?.length ? <RenderBlocks blocks={product.layout} /> : <></>}
+      <div className="container py-16 space-y-16">
+
+        {/* ---------------------- */}
+        {/* MAIN PRODUCT IMAGE     */}
+        {/* ---------------------- */}
+        {product.productImage && typeof product.productImage === "object" && (
+          <div className="w-full flex justify-center">
+            <img src={product.productImage.url}
+              alt={product.productImage.alt || product.title}
+              className="max-w-full w-full rounded-lg shadow"
+            />
+          </div>
+        )}
+
+        {/* ---------------------- */}
+        {/* PRODUCT DESCRIPTION    */}
+        {/* ---------------------- */}
+        {product.productContent && (
+          <RichText data={product.productContent} className='max-w-full w-full m-0 p-0 mb-12' />
+        )}
+
+        {/* ---------------------- */}
+        {/* PRODUCT SPECIFICATIONS */}
+        {/* ---------------------- */}
+        {product.productTable?.length > 0 && (
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Specifications</h2>
+
+            <table className="w-full border-collapse border border-border text-sm md:text-base">
+              <tbody>
+                {product.productTable?.map((row: any) => (
+                  <tr key={row.id} className="border-b border-border">
+                    <td className="p-3 font-semibold bg-muted w-1/3 border-r border-border">
+                      {row.label}
+                    </td>
+                    <td className="p-3">{row.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+      </div>
+
 
       {relatedProducts.length ? (
         <div className="container">
@@ -150,6 +194,7 @@ export default async function ProductPage({ params }: Args) {
       ) : (
         <></>
       )}
+
     </React.Fragment>
   )
 }

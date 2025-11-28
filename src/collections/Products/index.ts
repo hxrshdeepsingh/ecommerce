@@ -1,5 +1,3 @@
-import { Content } from '@/blocks/Content/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { slugField } from 'payload'
 import { CollectionOverride } from '@payloadcms/plugin-ecommerce/types'
 import {
@@ -117,10 +115,52 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
             },
 
             {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [Content, MediaBlock],
+              name: 'productImage',
+              label: 'Main Product Image',
+              type: 'upload',
+              relationTo: 'media',
+              required: true,
             },
+
+            {
+              name: 'productContent',
+              label: 'Product Description Content',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => [
+                  ...rootFeatures,
+                  HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                  FixedToolbarFeature(),
+                  InlineToolbarFeature(),
+                  HorizontalRuleFeature(),
+                ],
+              }),
+              required: false,
+            },
+
+            {
+              name: 'productTable',
+              label: 'Specifications Table',
+              type: 'array',
+              labels: {
+                singular: 'Row',
+                plural: 'Rows',
+              },
+              fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'value',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+            },
+
+
           ],
           label: 'Content',
         },

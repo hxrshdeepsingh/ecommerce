@@ -175,9 +175,9 @@ export function CartModal() {
                   )}
 
                   <Button asChild>
-                    <a className="w-full" href="/checkout">
+                    <Link className="w-full" href="/checkout">
                       Proceed to Checkout
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>

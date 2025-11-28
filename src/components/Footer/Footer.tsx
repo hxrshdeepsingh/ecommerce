@@ -64,7 +64,7 @@ const accountLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-accent dark:bg-gray-900">
+    <footer className="bg-accent">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {features.map((feature, idx) => {
           const Icon = feature.icon;
@@ -79,7 +79,7 @@ export default function Footer() {
                 }`}
             >
               <div className="flex justify-center items-center">
-                <Icon className="h-8 w-8 text-muted-foreground text-primary dark:text-white" />
+                <Icon className="h-8 w-8 text-muted-foreground text-primary" />
               </div>
               <div className="flex flex-col items-center gap-4">
                 <h6 className="text-xl font-semibold text-primary">{feature.title}</h6>
