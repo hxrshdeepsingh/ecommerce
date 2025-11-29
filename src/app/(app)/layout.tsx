@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { ReactNode } from "react";
+import NextTopLoader from 'nextjs-toploader';
 
 import { Providers } from "@/providers";
 import { InitTheme } from "@/providers/Theme/InitTheme";
@@ -24,6 +25,17 @@ export default async function RootLayout({
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
+        <NextTopLoader
+          color="#1e9cf0"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="none"
+        />
         <Providers>
           <ThemeProvider
             attribute="class"

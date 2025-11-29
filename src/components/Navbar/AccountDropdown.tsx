@@ -11,18 +11,12 @@ import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { User } from "lucide-react"
 import { headers as getHeaders } from 'next/headers.js'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import { Button } from "../ui/button"
 
 import { getPayloadClient } from '@/utilities/getPayloadCached';
 import { getCachedUser } from '@/utilities/getCachedUser';
 
 export default async function AccountDropdown() {
-    // const headers = await getHeaders()
-    // const payload = await getPayload({ config: configPromise }) 
-    // const { user } = await payload.auth({ headers })
-
     const headers = await getHeaders();
     const payload = await getPayloadClient();
     const user = await getCachedUser(payload, headers);
