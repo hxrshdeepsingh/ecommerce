@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Mail, MapPin, Phone, MessageSquare, Send } from 'lucide-react'
 
-export const dynamic = "force-static"
-
 export const metadata: Metadata = {
     title: 'Contact Us | Store',
     description: 'Get in touch with our team for support, inquiries, or feedback.',

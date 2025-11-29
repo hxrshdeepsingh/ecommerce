@@ -5,19 +5,19 @@ const categories = [
     {
         title: "Cameras",
         href: "/cameras",
-        image: "/cat-cameras.png",
+        image: "/media/ee.webp",
         description: "DSLR & Mirrorless Bodies"
     },
     {
         title: "Lenses",
         href: "/lenses",
-        image: "/cat-lenses.png",
+        image: "/media/ee.webp",
         description: "Prime & Zoom Glass"
     },
     {
         title: "Drones & Gear",
         href: "/accessories",
-        image: "/cat-drones.png",
+        image: "/media/ee.webp",
         description: "Aerial & Support Equipment"
     }
 ]

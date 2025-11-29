@@ -2,14 +2,19 @@ import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { headers as getHeaders } from 'next/headers'
-import { getAuthUser } from '@/utilities/auth'
+import { getPayloadClient } from '@/utilities/getPayloadCached'
+// import { getAuthUser } from '@/utilities/auth'
 import { AddressListing } from '@/components/addresses/AddressListing'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
 import { redirect } from 'next/navigation'
+import { getCachedUser } from '@/utilities/getCachedUser'
 
 export default async function AddressesPage() {
+  // const headers = await getHeaders()
+  // const user = await getAuthUser(headers)
   const headers = await getHeaders()
-  const user = await getAuthUser(headers)
+  const payload = await getPayloadClient()
+  const user = await getCachedUser(payload, headers)
 
   if (!user) {
     redirect(

@@ -1,10 +1,10 @@
-import configPromise from "@payload-config"
-import { getPayload } from "payload"
+// import configPromise from "@payload-config"
+import { getPayloadClient } from "@/utilities/getPayloadCached"
 import { cache } from "react"
 import CarouselClient from "./ProductsListClient"
 
 const getProductsCached = cache(async () => {
-  const payload = await getPayload({ config: configPromise })
+  const payload = await getPayloadClient();
 
   return payload.find({
     collection: "products",
