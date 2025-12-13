@@ -184,7 +184,24 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name?: string | null;
-  roles?: ('admin' | 'customer')[] | null;
+  roles?: ('admin' | 'customer' | 'dealer')[] | null;
+  companyName?: string | null;
+  natureOfOrganization?: ('proprietorship' | 'partnership' | 'llp' | 'pvt_ltd' | 'public_ltd') | null;
+  gstin?: string | null;
+  pan?: string | null;
+  msmeRegistrationNo?: string | null;
+  ownersName?: string | null;
+  contactPersonName?: string | null;
+  mobileNo?: string | null;
+  whatsappNo?: string | null;
+  alternateMobileNo?: string | null;
+  gstCertificate?: (number | null) | Media;
+  ownersID?: (number | null) | Media;
+  addressLine1?: string | null;
+  locality?: string | null;
+  pinCode?: string | null;
+  city?: string | null;
+  state?: string | null;
   orders?: {
     docs?: (number | Order)[];
     hasNextPage?: boolean;
@@ -217,6 +234,25 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -261,6 +297,7 @@ export interface Order {
 export interface Product {
   id: number;
   title: string;
+  dealerPrice?: number | null;
   description?: {
     root: {
       type: string;
@@ -335,25 +372,6 @@ export interface Product {
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -880,6 +898,23 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
   roles?: T;
+  companyName?: T;
+  natureOfOrganization?: T;
+  gstin?: T;
+  pan?: T;
+  msmeRegistrationNo?: T;
+  ownersName?: T;
+  contactPersonName?: T;
+  mobileNo?: T;
+  whatsappNo?: T;
+  alternateMobileNo?: T;
+  gstCertificate?: T;
+  ownersID?: T;
+  addressLine1?: T;
+  locality?: T;
+  pinCode?: T;
+  city?: T;
+  state?: T;
   orders?: T;
   cart?: T;
   addresses?: T;
@@ -1157,6 +1192,7 @@ export interface VariantOptionsSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   title?: T;
+  dealerPrice?: T;
   description?: T;
   gallery?:
     | T

@@ -7,10 +7,10 @@ import { draftMode } from 'next/headers'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import { Button } from '@/components/ui/button'
-import { ChevronLeftIcon } from 'lucide-react'
 import { RichText } from '@/components/RichText'
 import { getPayloadClient } from "@/utilities/getPayloadCached"
+import { ProductBreadcrumbs } from '@/components/product/ProductBreadcrumbs'
+import { Reviews } from '@/components/product/Reviews'
 
 export default async function ProductPage({ params }: any) {
   const { slug } = await params
@@ -31,12 +31,11 @@ export default async function ProductPage({ params }: any) {
   return (
     <>
       <div className="container pt-8 pb-8">
-        <Button asChild variant="ghost" className="mb-4">
-          <Link href="/shop">
-            <ChevronLeftIcon />
-            All products
-          </Link>
-        </Button>
+        <ProductBreadcrumbs
+          productTitle={product.title}
+          category={product.categories?.[0] && typeof product.categories?.[0] === 'object' ? product.categories[0] : undefined}
+        />
+
         <div className="flex flex-col gap-12 rounded-lg border p-8 md:py-12 lg:flex-row lg:gap-8 bg-primary-foreground">
           <div className="h-full w-full basis-full lg:basis-1/2">
             <Suspense
@@ -97,17 +96,23 @@ export default async function ProductPage({ params }: any) {
           </div>
         )}
 
+        {/* ---------------------- */}
+        {/* REVIEWS SECTION        */}
+        {/* ---------------------- */}
+        {/* <Reviews /> */}
       </div>
 
 
-      {relatedProducts.length ? (
+      {/* {
+      relatedProducts.length ? (
         <div className="container">
           <RelatedProducts products={relatedProducts as Product[]} />
         </div>
       ) : (
         <></>
-      )}
-
+      )
+    } */}
+      {/* </div> */}
     </>
   )
 }

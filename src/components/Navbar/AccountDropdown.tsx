@@ -29,7 +29,7 @@ export default async function AccountDropdown() {
                 </Link>
                 <Separator orientation="vertical" className="h-6" />
                 <Link href="/create-account">
-                    <Button variant="outline">Sign Up</Button>
+                    <Button variant="secondary">Sign Up</Button>
                 </Link>
             </div>
         )
@@ -46,7 +46,7 @@ export default async function AccountDropdown() {
                 </Avatar>
 
                 <div className='flex flex-col gap-1 text-start leading-none'>
-                    <span className='max-w-[17ch] truncate text-sm font-semibold'>
+                    <span className='max-w-[17ch] text-primary truncate text-sm font-semibold'>
                         {user?.name}
                     </span>
                     <span className='text-muted-foreground max-w-[20ch] truncate text-xs'>

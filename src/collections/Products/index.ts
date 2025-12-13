@@ -32,11 +32,27 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     enableVariants: true,
     gallery: true,
     priceInUSD: true,
+    dealerPrice: true,
     inventory: true,
     meta: true,
   },
   fields: [
     { name: 'title', type: 'text', required: true },
+    {
+      name: 'dealerPrice',
+      type: 'number',
+      access: {
+        read: ({ req: { user } }) => {
+          if (user?.roles?.includes('admin') || user?.roles?.includes('dealer')) {
+            return true
+          }
+          return false
+        },
+      },
+      admin: {
+        position: 'sidebar',
+      },
+    },
     {
       type: 'tabs',
       tabs: [

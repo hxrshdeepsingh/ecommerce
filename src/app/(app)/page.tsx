@@ -18,15 +18,38 @@ export default function Page() {
       <Categories />
 
       <Suspense fallback={<ProductsSkeleton />}>
-        <ProductsList />
+        <ProductsList
+          title="Industries Systems"
+          description="Discover our best-selling and trending items curated just for you."
+        />
       </Suspense>
 
       <Suspense fallback={<ProductsSkeleton />}>
-        <ProductsList />
+        <ProductsList
+          title="Security Systems"
+          description="Discover our best-selling and trending items curated just for you."
+        />
       </Suspense>
 
       <Suspense fallback={<ProductsSkeleton />}>
-        <ProductsList />
+        <ProductsList
+          title="CCTV Cameras"
+          description="Discover our best-selling and trending items curated just for you."
+        />
+      </Suspense>
+
+      <Suspense fallback={<ProductsSkeleton />}>
+        <ProductsList
+          title="Mobile Phones"
+          description="Discover our best-selling and trending items curated just for you."
+        />
+      </Suspense>
+
+      <Suspense fallback={<ProductsSkeleton />}>
+        <ProductsList
+          title="Mobile Accessories"
+          description="Discover our best-selling and trending items curated just for you."
+        />
       </Suspense>
 
       <Features />

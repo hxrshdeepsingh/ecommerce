@@ -34,8 +34,8 @@ export const Users: CollectionConfig = {
       name: 'roles',
       type: 'select',
       access: {
-        create: adminOnlyFieldAccess,
         read: adminOnlyFieldAccess,
+        create: () => true,
         update: adminOnlyFieldAccess,
       },
       defaultValue: ['customer'],
@@ -52,7 +52,130 @@ export const Users: CollectionConfig = {
           label: 'customer',
           value: 'customer',
         },
+        {
+          label: 'dealer',
+          value: 'dealer',
+        },
       ],
+    },
+    {
+      name: 'companyName',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'natureOfOrganization',
+      type: 'select',
+      options: [
+        { label: 'Proprietorship', value: 'proprietorship' },
+        { label: 'Partnership', value: 'partnership' },
+        { label: 'LLP', value: 'llp' },
+        { label: 'Private Limited', value: 'pvt_ltd' },
+        { label: 'Public Limited', value: 'public_ltd' },
+      ],
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'gstin',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'pan',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'msmeRegistrationNo',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'ownersName',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'contactPersonName',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'mobileNo',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'whatsappNo',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'alternateMobileNo',
+      type: 'text',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'gstCertificate',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    {
+      name: 'ownersID',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        condition: (data) => data?.roles?.includes('dealer'),
+      },
+    },
+    // Address Fields
+    {
+      name: 'addressLine1',
+      type: 'text',
+      label: 'Address',
+    },
+    {
+      name: 'locality',
+      type: 'text',
+      label: 'Locality/Landmark',
+    },
+    {
+      name: 'pinCode',
+      type: 'text',
+      label: 'PIN Code',
+    },
+    {
+      name: 'city',
+      type: 'text',
+      label: 'City',
+    },
+    {
+      name: 'state',
+      type: 'text',
+      label: 'State',
     },
     {
       name: 'orders',

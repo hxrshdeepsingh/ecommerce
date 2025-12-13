@@ -22,9 +22,9 @@ const getProductsCached = cache(async () => {
   })
 })
 
-export default async function ProductsList() {
+export default async function ProductsList({ title, description }: { title: string; description: string }) {
   const products = await getProductsCached()
-  return <CarouselClient products={products.docs} />
+  return <CarouselClient products={products.docs} title={title} description={description} />
 }
 
 export const revalidate = 60

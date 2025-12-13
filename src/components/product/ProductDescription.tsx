@@ -9,6 +9,7 @@ import React, { Suspense } from 'react'
 import { VariantSelector } from './VariantSelector'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import { StockIndicator } from '@/components/product/StockIndicator'
+import { useAuth } from '@/providers/Auth'
 
 export function ProductDescription({ product }: { product: Product }) {
   const { currency } = useCurrency()
@@ -16,9 +17,13 @@ export function ProductDescription({ product }: { product: Product }) {
     lowestAmount = 0,
     highestAmount = 0
   const priceField = `priceIn${currency.code}` as keyof Product
-  const hasVariants = product.enableVariants && Boolean(product.variants?.docs?.length)
+  const { user } = useAuth()
+  const isDealer = user?.roles?.includes('dealer')
+  const dealerPrice = (product as any).dealerPrice
 
-  if (hasVariants) {
+  if (isDealer && dealerPrice) {
+    amount = dealerPrice
+  } else if (hasVariants) {
     const priceField = `priceIn${currency.code}` as keyof Variant
     const variantsOrderedByPrice = product.variants?.docs
       ?.filter((variant) => variant && typeof variant === 'object')

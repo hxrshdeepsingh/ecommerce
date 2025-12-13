@@ -39,26 +39,26 @@ const contactInfo = [
 
 
 const pagesLinks = [
-  "About Us",
-  "Contact Us",
-  "Installation Services",
-  "Terms & Conditions",
-  "Privacy Policy",
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "Installation Services", href: "/services" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];
 
 const shopLinks = [
-  "CCTV Cameras",
-  "DVR & NVR Systems",
-  "Smart Door Cameras",
-  "WiFi Cameras",
-  "Security Accessories",
+  { label: "CCTV Cameras", href: "/shop" },
+  { label: "DVR & NVR Systems", href: "/shop" },
+  { label: "Smart Door Cameras", href: "/shop" },
+  { label: "WiFi Cameras", href: "/shop" },
+  { label: "Security Accessories", href: "/shop" },
 ];
 
 const accountLinks = [
-  "Dashboard",
-  "My Orders",
-  "Wishlist",
-  "Account Settings",
+  { label: "Dashboard", href: "/account" },
+  { label: "My Orders", href: "/account/orders" },
+  { label: "Wishlist", href: "/wishlist" },
+  { label: "Account Settings", href: "/account" },
 ];
 
 
@@ -114,8 +114,8 @@ export default function Footer() {
             <ul className="text-muted-foreground space-y-3">
               {pagesLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link className="text-sm font-medium hover:text-primary" href="#">
-                    {link}
+                  <Link className="text-sm font-medium hover:text-primary" href={link.href}>
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -129,8 +129,8 @@ export default function Footer() {
             <ul className="text-muted-foreground space-y-3">
               {shopLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link className="text-sm font-medium hover:text-primary" href="#">
-                    {link}
+                  <Link className="text-sm font-medium hover:text-primary" href={link.href}>
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -144,8 +144,8 @@ export default function Footer() {
             <ul className="text-muted-foreground space-y-3">
               {accountLinks.map((link, idx) => (
                 <li key={idx}>
-                  <Link className="text-sm font-medium hover:text-primary" href="#">
-                    {link}
+                  <Link className="text-sm font-medium hover:text-primary" href={link.href}>
+                    {link.label}
                   </Link>
                 </li>
               ))}

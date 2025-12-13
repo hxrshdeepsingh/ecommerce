@@ -15,7 +15,61 @@ const categories = [
         description: "Prime & Zoom Glass"
     },
     {
-        title: "Drones & Gear",
+        title: "Drones",
+        href: "/accessories",
+        image: "/media/ee.webp",
+        description: "Aerial & Support Equipment"
+    },
+    {
+        title: "Cameras",
+        href: "/cameras",
+        image: "/media/ee.webp",
+        description: "DSLR & Mirrorless Bodies"
+    },
+    {
+        title: "Lenses",
+        href: "/lenses",
+        image: "/media/ee.webp",
+        description: "Prime & Zoom Glass"
+    },
+    {
+        title: "Drones",
+        href: "/accessories",
+        image: "/media/ee.webp",
+        description: "Aerial & Support Equipment"
+    },
+    {
+        title: "Cameras",
+        href: "/cameras",
+        image: "/media/ee.webp",
+        description: "DSLR & Mirrorless Bodies"
+    },
+    {
+        title: "Lenses",
+        href: "/lenses",
+        image: "/media/ee.webp",
+        description: "Prime & Zoom Glass"
+    },
+    {
+        title: "Drones",
+        href: "/accessories",
+        image: "/media/ee.webp",
+        description: "Aerial & Support Equipment"
+    },
+    {
+        title: "Cameras",
+        href: "/cameras",
+        image: "/media/ee.webp",
+        description: "DSLR & Mirrorless Bodies"
+    },
+    {
+        title: "Lenses",
+        href: "/lenses",
+        image: "/media/ee.webp",
+        description: "Prime & Zoom Glass"
+    },
+    {
+        title: "Drones",
         href: "/accessories",
         image: "/media/ee.webp",
         description: "Aerial & Support Equipment"
@@ -38,27 +92,29 @@ export default function Categories() {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
                     {categories.map((category) => (
                         <Link
                             key={category.title}
                             href={category.href}
-                            className="group relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-[3/4] border border-border/50"
+                            className="group relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-[3/4] shadow-md hover:shadow-xl transition-all duration-300"
                         >
                             <div
                                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                                 style={{ backgroundImage: `url(${category.image})` }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
-                            <div className="absolute bottom-0 left-0 p-8 text-white w-full">
-                                <h3 className="text-3xl font-bold mb-2">{category.title}</h3>
-                                <p className="text-white/70 text-base mb-6 transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-75">
-                                    {category.description}
-                                </p>
-                                <span className="inline-flex items-center text-sm font-bold uppercase tracking-widest border-b-2 border-white/0 group-hover:border-white transition-all duration-300">
-                                    Shop Now <ArrowRight className="ml-2 w-4 h-4" />
-                                </span>
+                            {/* Content with Glass Effect */}
+                            <div className="absolute bottom-6 left-6 right-6">
+                                <div className="backdrop-blur-md bg-white/10 border border-white/20 p-6 rounded-xl overflow-hidden relative">
+                                    <h3 className="text-md font-bold text-white mb-1 group-hover:text-primary-foreground transition-colors">{category.title}</h3>
+                                    <p className="text-white/80 text-sm transform transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-20 group-hover:opacity-100 group-hover:mb-3">
+                                        {category.description}
+                                    </p>
+
+                                </div>
                             </div>
                         </Link>
                     ))}
