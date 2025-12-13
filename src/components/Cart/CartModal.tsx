@@ -169,7 +169,7 @@ export function CartModal() {
                       <p>Total</p>
                       <Price
                         amount={cart?.subtotal}
-                        className="text-right text-base text-black dark:text-white"
+                        className="text-right text-base text-foreground font-medium"
                       />
                     </div>
                   )}

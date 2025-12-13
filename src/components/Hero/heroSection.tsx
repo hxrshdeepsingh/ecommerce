@@ -27,7 +27,7 @@ export default function HeroSection() {
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4">
           <div className="max-w-3xl text-white">
-            <Badge className="mb-4 bg-white text-black">New Collection</Badge>
+            <Badge className="mb-4" variant="secondary">New Collection</Badge>
 
             <h1 className="text-5xl font-bold mb-6 drop-shadow-lg font-sohne">
               Discover Amazing Products

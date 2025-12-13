@@ -41,7 +41,7 @@ export default function Newsletter() {
                         <Input
                             type="email"
                             placeholder="Enter your email address"
-                            className="flex-1 bg-white/20 text-white placeholder:text-white/70 h-12 border-white/30"
+                            className="flex-1 bg-background/20 text-foreground placeholder:text-muted-foreground h-12 border-border/30"
                         />
                         <Button
                             type="submit"

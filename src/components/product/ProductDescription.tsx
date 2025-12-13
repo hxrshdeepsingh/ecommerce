@@ -20,6 +20,7 @@ export function ProductDescription({ product }: { product: Product }) {
   const { user } = useAuth()
   const isDealer = user?.roles?.includes('dealer')
   const dealerPrice = (product as any).dealerPrice
+  const hasVariants = product.variants?.docs && product.variants.docs.length > 0
 
   if (isDealer && dealerPrice) {
     amount = dealerPrice

@@ -86,7 +86,7 @@ export default function Navbar() {
       </div>
 
       {/* ==== MAIN HEADER ==== */}
-      <div className="bg-white">
+      <div className="bg-white backdrop-blur-md border-b sticky top-0 z-50">
         <div className="container">
           <div className="grid grid-cols-2 lg:grid-cols-12 items-center gap-4 py-4 border-b">
 

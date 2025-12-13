@@ -50,7 +50,7 @@ export function FilterItemDropdown({ list }: { list: ListItem[] }) {
       </div>
       {openSelect && (
         <div
-          className="absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black"
+          className="absolute z-40 w-full rounded-b-md bg-popover p-4 shadow-md border-x border-b border-border"
           onClick={() => {
             setOpenSelect(false)
           }}
