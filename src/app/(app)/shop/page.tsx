@@ -3,6 +3,8 @@ import { ProductGridItem } from '@/components/ProductGridItem'
 // import configPromise from '@payload-config'
 // import { getPayload } from 'payload'
 import { getPayloadClient } from "@/utilities/getPayloadCached"
+import { getCachedUser } from "@/utilities/getCachedUser"
+import { headers as getHeaders } from "next/headers"
 import React from 'react'
 import { FilterSidebar } from '@/components/Shop/FilterSidebar'
 import { SortSelect } from '@/components/Shop/SortSelect'
@@ -21,6 +23,8 @@ type Props = {
 export default async function ShopPage({ searchParams }: Props) {
   const { q: searchValue, sort, category } = await searchParams
   const payload = await getPayloadClient();
+  const headers = await getHeaders();
+  const user = await getCachedUser(payload, headers);
 
   const categoriesDocs = await payload.find({
     collection: 'categories',
@@ -129,7 +133,7 @@ export default async function ShopPage({ searchParams }: Props) {
           {products?.docs.length > 0 && (
             <Grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.docs.map((product) => {
-                return <ProductGridItem key={product.id} product={product} />
+                return <ProductGridItem key={product.id} product={product} user={user} />
               })}
             </Grid>
           )}

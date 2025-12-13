@@ -1,5 +1,5 @@
-import type { Product } from '@/payload-types'
-import { useAuth } from '@/providers/Auth'
+import type { Product, User } from '@/payload-types'
+// import { useAuth } from '@/providers/Auth' // Removed
 
 import Link from 'next/link'
 import React from 'react'
@@ -20,12 +20,13 @@ import { Eye } from 'lucide-react'
 
 type Props = {
   product: Partial<Product>
+  user?: User | null
 }
 
-export const ProductGridItem: React.FC<Props> = ({ product }) => {
+export const ProductGridItem: React.FC<Props> = ({ product, user }) => {
   const { gallery, priceInUSD, title, slug, categories } = product
   const dealerPrice = (product as any).dealerPrice
-  const { user } = useAuth()
+  // const { user } = useAuth() // Removed
   const isDealer = user?.roles?.includes('dealer')
 
   let price = isDealer && dealerPrice ? dealerPrice : priceInUSD

@@ -8,7 +8,10 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
+import { useAuth } from "@/providers/Auth"
+
 export default function CarouselClient({ products, title, description }: { products: any; title: string; description: string }) {
+  const { user } = useAuth()
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
@@ -73,7 +76,7 @@ export default function CarouselClient({ products, title, description }: { produ
                 className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
               >
                 <div className="h-full p-1">
-                  <ProductGridItem product={product} />
+                  <ProductGridItem product={product} user={user} />
                 </div>
               </CarouselItem>
             ))}
