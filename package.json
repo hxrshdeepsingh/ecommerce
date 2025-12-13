@@ -5,8 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
+    "build": "next build --webpack",
+    "dev": "next dev --webpack",
     "generate:importmap": "payload generate:importmap",
     "generate:types": "payload generate:types",
     "payload": "payload",
@@ -14,15 +14,15 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.65.0",
-    "@payloadcms/email-nodemailer": "3.65.0",
-    "@payloadcms/next": "3.65.0",
-    "@payloadcms/plugin-ecommerce": "3.65.0",
-    "@payloadcms/plugin-form-builder": "3.65.0",
-    "@payloadcms/plugin-seo": "3.65.0",
-    "@payloadcms/richtext-lexical": "3.65.0",
-    "@payloadcms/storage-vercel-blob": "3.65.0",
-    "@payloadcms/ui": "3.65.0",
+    "@payloadcms/db-postgres": "^3.65.0",
+    "@payloadcms/email-nodemailer": "^3.65.0",
+    "@payloadcms/next": "^3.65.0",
+    "@payloadcms/plugin-ecommerce": "^3.65.0",
+    "@payloadcms/plugin-form-builder": "^3.65.0",
+    "@payloadcms/plugin-seo": "^3.65.0",
+    "@payloadcms/richtext-lexical": "^3.65.0",
+    "@payloadcms/storage-vercel-blob": "^3.65.0",
+    "@payloadcms/ui": "^3.65.0",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-checkbox": "^1.3.3",
@@ -33,7 +33,7 @@
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-visually-hidden": "^1.2.4",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
     "babel-plugin-react-compiler": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -41,16 +41,16 @@
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "graphql": "^16.12.0",
-    "lucide-react": "^0.555.0",
-    "next": "^15.2.3",
+    "lucide-react": "^0.561.0",
+    "next": "^16.0.10",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.9.17",
-    "payload": "3.65.0",
+    "payload": "3.68.3",
     "postcss": "^8.5.6",
     "razorpay": "^2.9.6",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-hook-form": "7.66.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-hook-form": "7.68.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
@@ -58,20 +58,15 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "24.10.1",
+    "@types/node": "25.0.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "cross-env": "^10.1.0",
-    "knip": "^5.70.2",
-    "tailwindcss": "^4.1.17",
+    "knip": "^5.73.4",
+    "tailwindcss": "^4.1.18",
     "typescript": "5.9.3"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ]
   }
 }

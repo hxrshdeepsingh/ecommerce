@@ -13,7 +13,11 @@ import { redirect } from 'next/navigation'
 export default async function CreateAccount() {
   const headers = await getHeaders()
   const payload = await getPayload({ config: configPromise })
-  const { user } = await payload.auth({ headers })
+
+  const webHeaders = new Headers()
+  headers.forEach((value, key) => webHeaders.set(key, value))
+
+  const { user } = await payload.auth({ headers: webHeaders })
 
   if (user) {
     redirect(`/account?warning=${encodeURIComponent('You are already logged in.')}`)
