@@ -20,6 +20,11 @@ export const Categories: CollectionConfig = {
       position: undefined,
     }),
     {
+      name: 'description',
+      type: 'text',
+      required: true,
+    },
+    {
       name: 'media',
       type: 'upload',
       relationTo: 'media',

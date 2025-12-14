@@ -136,7 +136,7 @@ export default async function Orders(props: Props) {
     typeof searchParams?.page === 'string'
       ? Number(searchParams.page)
       : 1
-
+ 
   const payload = await getPayloadClient()
 
   let orders: any[] = []

@@ -8,6 +8,15 @@ import { InitTheme } from "@/providers/Theme/InitTheme";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description: 'A custom e-commerce store built with Payload CMS and Next.js.',
+  title: 'Parth Infotechs',
+  icons: {
+    icon: '/icon.png',
+  }
+}
 
 export default async function RootLayout({
   children,
@@ -21,8 +30,6 @@ export default async function RootLayout({
     >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
         <NextTopLoader

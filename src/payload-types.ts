@@ -439,6 +439,7 @@ export interface Category {
    */
   generateSlug?: boolean | null;
   slug: string;
+  description: string;
   media?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -956,6 +957,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
   generateSlug?: T;
   slug?: T;
+  description?: T;
   media?: T;
   updatedAt?: T;
   createdAt?: T;

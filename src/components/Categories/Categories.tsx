@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { getPayloadClient } from '@/lib/payload'
 
 const categories = [
     {
@@ -76,7 +77,20 @@ const categories = [
     }
 ]
 
-export default function Categories() {
+async function fetchCategories(payload: any) {
+    const result = await payload.find({
+        collection: 'categories',
+        limit: 10,
+        overrideAccess: true,
+        depth: 0
+    })
+    return result.docs;
+}
+
+export default async function Categories() {
+    const payload = await getPayloadClient();
+    const categoriesRaw = await fetchCategories(payload);
+    console.log(categoriesRaw)
     return (
         <section className="py-12 md:py-16 bg-background">
             <div className="container px-4 md:px-6">
@@ -93,27 +107,27 @@ export default function Categories() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
-                    {categories.map((category) => (
+                    {categoriesRaw.map((category: any) => (
                         <Link
                             key={category.title}
-                            href={category.href}
+                            href={`/category/${category.slug}`}
                             className="group relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-[3/4] shadow-md hover:shadow-xl transition-all duration-300"
                         >
                             <div
                                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                style={{ backgroundImage: `url(${category.image})` }}
+                                style={{ backgroundImage: `url(${category.media})` }}
                             />
                             {/* Gradient Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
                             {/* Content with Glass Effect */}
                             <div className="absolute bottom-6 left-6 right-6">
-                                <div className="backdrop-blur-md bg-white/10 border border-white/20 p-6 rounded-xl overflow-hidden relative">
-                                    <h3 className="text-md font-bold text-white mb-1 group-hover:text-primary-foreground transition-colors">{category.title}</h3>
+                                <div className="backdrop-blur-md bg-white/10 border border-white/20 p-2 rounded-xl overflow-hidden relative">
+                                    <h3 className="text-sm font-bold text-white mb-1 group-hover:text-primary-foreground transition-colors">{category.title}</h3>
                                     <p className="text-white/80 text-sm transform transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-20 group-hover:opacity-100 group-hover:mb-3">
                                         {category.description}
                                     </p>
-
+                        
                                 </div>
                             </div>
                         </Link>

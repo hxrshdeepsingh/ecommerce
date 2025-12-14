@@ -142,4 +142,4 @@ function NavLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-export const revalidate = 300;
+
